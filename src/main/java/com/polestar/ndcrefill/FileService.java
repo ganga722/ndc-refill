@@ -18,7 +18,6 @@ public class FileService {
 
     String DATE_REGEX = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
     String TIME_REGEX = "[0-9]{2}:[0-9]{2}:[0-9]{2}";
-
     String SIMPLE_IMO_REGEX = "[0-9]{7}";
     int count = 0;
 

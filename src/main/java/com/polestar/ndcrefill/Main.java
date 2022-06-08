@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -15,7 +16,7 @@ public class Main {
     private static final String MASTER_USERNAME = "test_pan_dc";
     private static final String MASTER_PASSWORD = "Vod2FrovyerUc8";
 
-    private static final boolean DO_INSERTS = true;
+    private static final boolean DO_INSERTS = false;
 
     private static final String FILE_LOCATION = "src/main/resources/missing_positions-test.csv";
 
@@ -42,6 +43,8 @@ public class Main {
             List<Position> positions = fileService.processFile(FILE_LOCATION);
             int totalPositions = positions.size();
             AtomicInteger count = new AtomicInteger();
+            Timestamp starttimestamp = new Timestamp(System.currentTimeMillis());
+            log.info("Start: " + starttimestamp);
 
             //iterate through data
             positions.forEach(position -> {
@@ -50,26 +53,39 @@ public class Main {
                 //execute
                 try {
                     log.debug(gson.toJson(position));
-                    if(count.getAndIncrement() % 10 == 9){
+
+                    if(DO_INSERTS){
+                        statement.addBatch(insertStatement);
+                    }
+                    if(count.getAndIncrement() % 100 == 99){
+                        int[] result = statement.executeBatch();
+                        log.debug(gson.toJson(result));
                         log.info("Current position: " + count + " out of " + totalPositions);
                     }
-                    if(DO_INSERTS){
-                        statement.execute(insertStatement);
-                    }
+
                 } catch (SQLException e) {
                     log.error("Error with SQL Statement: " + insertStatement);
                     e.printStackTrace();
                 }
             });
 
+            statement.executeBatch();
+
             getEndingDetails(statement);
+
+            conn.close();
+
+            Timestamp endtimestamp = new Timestamp(System.currentTimeMillis());
+
+            log.info("finished: " + endtimestamp);
+            log.info("time taken: " + Duration.between(starttimestamp.toInstant(), endtimestamp.toInstant()).toString());
 
         } catch (SQLException e) {
             log.error("Error with SQL Connection?");
             e.printStackTrace();
         }
 
-        log.info("finished");
+
     }
 
     private static void getEndingDetails(Statement statement) throws SQLException {
