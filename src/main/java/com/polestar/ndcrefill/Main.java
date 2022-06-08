@@ -1,9 +1,12 @@
 package com.polestar.ndcrefill;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Main {
@@ -12,13 +15,16 @@ public class Main {
     private static final String MASTER_USERNAME = "test_pan_dc";
     private static final String MASTER_PASSWORD = "Vod2FrovyerUc8";
 
-    private static final boolean doInserts = true;
+    private static final boolean DO_INSERTS = true;
+
+    private static final String FILE_LOCATION = "src/main/resources/missing_positions-test.csv";
 
     private static final String FLAG_CODE = "1108";
 
     private static final String DATA_CENTER_IDENTIFIER = "3108";
     private static int shipPositionID = 3000050;
 
+    static Gson gson = new GsonBuilder().create();
 
     public static void main(String[] args) {
 
@@ -33,15 +39,21 @@ public class Main {
 
             //get position data for DC
             FileService fileService = new FileService(FLAG_CODE);
-            List<Position> positions = fileService.processFile("src/main/resources/missing_positions-test.csv");
+            List<Position> positions = fileService.processFile(FILE_LOCATION);
+            int totalPositions = positions.size();
+            AtomicInteger count = new AtomicInteger();
 
             //iterate through data
             positions.forEach(position -> {
+
                 String insertStatement = constructSQLQuery(position);
                 //execute
                 try {
-                    log.info("SQL Statement: " + insertStatement);
-                    if(doInserts){
+                    log.debug(gson.toJson(position));
+                    if(count.getAndIncrement() % 10 == 9){
+                        log.info("Current position: " + count + " out of " + totalPositions);
+                    }
+                    if(DO_INSERTS){
                         statement.execute(insertStatement);
                     }
                 } catch (SQLException e) {
