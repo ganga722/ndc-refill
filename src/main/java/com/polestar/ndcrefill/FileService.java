@@ -63,13 +63,13 @@ public class FileService {
                 position.setTrail_time(splitted[3]);
                 position.setTrail_latitude(splitted[4]);
                 position.setTrail_longitude(splitted[5]);
-                position.setTrail_speed(splitted[6]);
-                position.setTrail_heading(splitted[7]);
+                position.setTrail_speed(splitted[6].equals("") ? "0" : splitted[6]);
+                position.setTrail_heading(splitted[7].equals("") ? "0" : splitted[7]);
                 position.setI_m_o_number(splitted[8]);
                 position.setDC_ID(splitted[9]);
                 
                 validateFields(position);
-                
+
                 return position;
             }
         } catch (ArrayIndexOutOfBoundsException | InvalidPropertiesFormatException e){
@@ -87,6 +87,8 @@ public class FileService {
         timeCheck(position.getCreation_time());
         timeCheck(position.getTrail_time());
         imoCheck(position.getI_m_o_number());
+        latitudeCheck(position.getTrail_latitude());
+        longitudeCheck(position.getTrail_longitude());
     }
 
     private void imoCheck(String i_m_o_number) throws InvalidPropertiesFormatException {
@@ -104,6 +106,18 @@ public class FileService {
     private void dateCheck(String date) throws InvalidPropertiesFormatException {
         if(!date.matches(DATE_REGEX)){
             throw new InvalidPropertiesFormatException("bad date: " + date);
+        }
+    }
+
+    private void latitudeCheck(String trail_latitude) throws InvalidPropertiesFormatException {
+        if("".equals(trail_latitude)){
+            throw new InvalidPropertiesFormatException("bad latitude: " + trail_latitude);
+        }
+    }
+
+    private void longitudeCheck(String trail_longitude) throws InvalidPropertiesFormatException {
+        if ("".equals(trail_longitude)){
+            throw new InvalidPropertiesFormatException("bad longitude: " + trail_longitude);
         }
     }
 

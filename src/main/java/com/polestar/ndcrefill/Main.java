@@ -12,18 +12,44 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class Main {
 
-    private static final String HOST = "jdbc:postgresql://rds-manager.polestar-testing.local:5432/";
-    private static final String MASTER_USERNAME = "test_pan_dc";
-    private static final String MASTER_PASSWORD = "Vod2FrovyerUc8";
+//    private static final String HOST = "jdbc:postgresql://rds-manager.polestar-testing.local:5432/";
+//    private static final String MASTER_USERNAME = "test_pan_dc";
+//    private static final String MASTER_PASSWORD = "Vod2FrovyerUc8";
+//
+//    private static final boolean DO_INSERTS = true;
+//
+//    private static final String FILE_LOCATION = "src/main/resources/missing_positions-test.csv";
+//
+//    private static final String FLAG_CODE = "1108";
+//
+//    private static final String DATA_CENTER_IDENTIFIER = "3108";
+//    private static int shipPositionID = 3000055;
+//-----------------------------------------------------------------------
+    private static final String HOST = "jdbc:postgresql://10.0.0.144:5432/";
+    private static final String MASTER_USERNAME = "lrit";
+    private static final String MASTER_PASSWORD = "ynf97xp";
 
     private static final boolean DO_INSERTS = false;
 
-    private static final String FILE_LOCATION = "src/main/resources/missing_positions-test.csv";
+    private static final String FILE_LOCATION = "src/main/resources/missing_positions.csv";
 
-    private static final String FLAG_CODE = "1108";
+    private static final String FLAG_CODE = "1125";
+    private static final String DATA_CENTER_IDENTIFIER = "3125";
 
-    private static final String DATA_CENTER_IDENTIFIER = "3108";
-    private static int shipPositionID = 3000055;
+    private static int shipPositionID = 1200000;
+//-----------------------------------------------------------------------
+//    private static final String HOST = "jdbc:postgresql://lrit-cluster-one.polestar-production.local:5432/";
+//    private static final String MASTER_USERNAME = "cok";
+//    private static final String MASTER_PASSWORD = "Vod2FrovyerUc8";
+//
+//    private static final boolean DO_INSERTS = true;
+//
+//    private static final String FILE_LOCATION = "src/main/resources/missing_positions.csv";
+//
+//    private static final String FLAG_CODE = "1030";
+//    private static final String DATA_CENTER_IDENTIFIER = "3006";
+//
+//    private static int shipPositionID = 1702050;
 
     static Gson gson = new GsonBuilder().create();
 
@@ -87,13 +113,13 @@ public class Main {
         } catch (SQLException e) {
             log.error("Error with SQL Batch", e);
         }
-
-
     }
 
     private static void getEndingDetails(Statement statement) throws SQLException {
         log.info("Ending count in shipposition table: " + getShipPositionCount(statement));
-        log.info("new max shippositionID: " + getMaxShipPositionID(statement));
+        int newMaxId = getMaxShipPositionID(statement);
+        log.info("new max shippositionID: " + newMaxId);
+        log.info("new sequence id number: " + (int) Math.ceil(newMaxId/50));
     }
 
     private static void getStartingDetails(Statement statement) throws SQLException {
@@ -132,15 +158,14 @@ public class Main {
         String gnssTimestamp = String.format("%s %s", position.getTrail_date(), position.getTrail_time());
 
         String sql = String.format(
-                "insert into shipposition as sp " +
+                "insert into shipposition " +
                 "(id, aspidentifier, aspreceivetimestamp, asptransmittimestamp, averagespeed, datacenteridentifier, datauserprovideridentifier, heading, mmsi, latitude, longitude, receivetimestamp, shipname, shippositiontype, shipborneequipmentidentifier, shipborneequipmenttimestamp, speed, version, ship_id) " +
                 "select " +
-                "'%d', '4001', '%s', '%s', '%s', '%s', '%s', '%s', (select mmsi from ship as s where s.imonumber = '%s'), '%s', '%s', '%s', (select imonumber from ship as s where s.imonumber = '%s'), 'PERIODIC_REPORT', (select shipborneequipmentidentifier from ship as s where s.imonumber = '%s'), '%s', '%s', '0', (select id from ship as s where s.imonumber = '%s') " +
-                "WHERE NOT EXISTS (SELECT id FROM shipposition WHERE shipborneequipmenttimestamp = '%s');",
-                shipPositionID, createTimestamp, createTimestamp, position.getTrail_speed(), DATA_CENTER_IDENTIFIER, position.getDC_ID(), position.getTrail_heading(), position.getI_m_o_number(), position.getTrail_latitude(), position.getTrail_longitude(), createTimestamp, position.getI_m_o_number(), position.getI_m_o_number(), gnssTimestamp, position.getTrail_speed(), position.getI_m_o_number(), gnssTimestamp);
+                "'%d', '4001', '%s', '%s', '%s', '%s', '%s', '%s', (select mmsi from ship where imonumber = '%s'), '%s', '%s', '%s', (select shipname from ship where imonumber = '%s'), 'PERIODIC_REPORT', (select shipborneequipmentidentifier from ship where imonumber = '%s'), '%s', '%s', '0', (select id from ship where imonumber = '%s') " +
+                "WHERE NOT EXISTS (SELECT id FROM shipposition WHERE shipborneequipmenttimestamp = '%s' and shipborneequipmentidentifier = (select shipborneequipmentidentifier from ship where imonumber = '%s'));",
+                shipPositionID, createTimestamp, createTimestamp, position.getTrail_speed(), DATA_CENTER_IDENTIFIER, position.getDC_ID(), position.getTrail_heading(), position.getI_m_o_number(), position.getTrail_latitude(), position.getTrail_longitude(), createTimestamp, position.getI_m_o_number(), position.getI_m_o_number(), gnssTimestamp, position.getTrail_speed(), position.getI_m_o_number(), gnssTimestamp, position.getI_m_o_number());
         shipPositionID++;
         return sql;
     }
-
 
 }
