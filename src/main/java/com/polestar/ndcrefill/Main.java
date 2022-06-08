@@ -23,7 +23,7 @@ public class Main {
     private static final String FLAG_CODE = "1108";
 
     private static final String DATA_CENTER_IDENTIFIER = "3108";
-    private static int shipPositionID = 3000050;
+    private static int shipPositionID = 3000055;
 
     static Gson gson = new GsonBuilder().create();
 
@@ -64,12 +64,16 @@ public class Main {
                     }
 
                 } catch (SQLException e) {
-                    log.error("Error with SQL Statement: " + insertStatement);
-                    e.printStackTrace();
+                    log.error("Error with SQL Batch", e);
                 }
             });
-
-            statement.executeBatch();
+            try{
+                int[] results = statement.executeBatch();
+                log.debug(gson.toJson(results));
+                log.info("Current position: " + count + " out of " + totalPositions);
+            } catch (SQLException e) {
+                log.error("Error with SQL Batch", e);
+            }
 
             getEndingDetails(statement);
 
@@ -81,8 +85,7 @@ public class Main {
             log.info("time taken: " + Duration.between(starttimestamp.toInstant(), endtimestamp.toInstant()).toString());
 
         } catch (SQLException e) {
-            log.error("Error with SQL Connection?");
-            e.printStackTrace();
+            log.error("Error with SQL Batch", e);
         }
 
 
