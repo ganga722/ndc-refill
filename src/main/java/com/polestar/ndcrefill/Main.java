@@ -25,18 +25,18 @@ public class Main {
 //    private static final String DATA_CENTER_IDENTIFIER = "3108";
 //    private static int shipPositionID = 3000055;
 //-----------------------------------------------------------------------
-    private static final String HOST = "jdbc:postgresql://10.0.0.144:5432/";
+    private static final String HOST = "jdbc:postgresql://10.0.0.42:5432/";
     private static final String MASTER_USERNAME = "lrit";
     private static final String MASTER_PASSWORD = "ynf97xp";
 
-    private static final boolean DO_INSERTS = false;
+    private static final boolean DO_INSERTS = true;
 
     private static final String FILE_LOCATION = "src/main/resources/missing_positions.csv";
 
-    private static final String FLAG_CODE = "1125";
-    private static final String DATA_CENTER_IDENTIFIER = "3125";
+    private static final String FLAG_CODE = "1108";
+    private static final String DATA_CENTER_IDENTIFIER = "3108";
 
-    private static int shipPositionID = 1200000;
+    private static int shipPositionID = 60000000;
 //-----------------------------------------------------------------------
 //    private static final String HOST = "jdbc:postgresql://lrit-cluster-one.polestar-production.local:5432/";
 //    private static final String MASTER_USERNAME = "cok";
@@ -116,14 +116,14 @@ public class Main {
     }
 
     private static void getEndingDetails(Statement statement) throws SQLException {
-        log.info("Ending count in shipposition table: " + getShipPositionCount(statement));
+//        log.info("Ending count in shipposition table: " + getShipPositionCount(statement));
         int newMaxId = getMaxShipPositionID(statement);
         log.info("new max shippositionID: " + newMaxId);
         log.info("new sequence id number: " + (int) Math.ceil(newMaxId/50));
     }
 
     private static void getStartingDetails(Statement statement) throws SQLException {
-        log.info("Starting count in shipposition table: " + getShipPositionCount(statement));
+//        log.info("Starting count in shipposition table: " + getShipPositionCount(statement));
         log.info("ShipPosition Generator Value: " + getGeneratorValue(statement));
 
         int maxID = getMaxShipPositionID(statement);
