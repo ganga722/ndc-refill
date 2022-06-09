@@ -25,31 +25,31 @@ public class Main {
 //    private static final String DATA_CENTER_IDENTIFIER = "3108";
 //    private static int shipPositionID = 3000055;
 //-----------------------------------------------------------------------
-    private static final String HOST = "jdbc:postgresql://10.0.0.42:5432/";
-    private static final String MASTER_USERNAME = "lrit";
-    private static final String MASTER_PASSWORD = "ynf97xp";
-
-    private static final boolean DO_INSERTS = true;
-
-    private static final String FILE_LOCATION = "src/main/resources/missing_positions.csv";
-
-    private static final String FLAG_CODE = "1108";
-    private static final String DATA_CENTER_IDENTIFIER = "3108";
-
-    private static int shipPositionID = 60000000;
-//-----------------------------------------------------------------------
-//    private static final String HOST = "jdbc:postgresql://lrit-cluster-one.polestar-production.local:5432/";
-//    private static final String MASTER_USERNAME = "cok";
-//    private static final String MASTER_PASSWORD = "Vod2FrovyerUc8";
+//    private static final String HOST = "jdbc:postgresql://10.0.0.42:5432/";
+//    private static final String MASTER_USERNAME = "lrit";
+//    private static final String MASTER_PASSWORD = "ynf97xp";
 //
 //    private static final boolean DO_INSERTS = true;
 //
 //    private static final String FILE_LOCATION = "src/main/resources/missing_positions.csv";
 //
-//    private static final String FLAG_CODE = "1030";
-//    private static final String DATA_CENTER_IDENTIFIER = "3006";
+//    private static final String FLAG_CODE = "1108";
+//    private static final String DATA_CENTER_IDENTIFIER = "3108";
 //
-//    private static int shipPositionID = 1702050;
+//    private static int shipPositionID = 60000000;
+//-----------------------------------------------------------------------
+    private static final String HOST = "jdbc:postgresql://lrit-cluster-one.polestar-production.local:5432/";
+    private static final String MASTER_USERNAME = "aus";
+    private static final String MASTER_PASSWORD = "Vod2FrovyerUc8";
+
+    private static final boolean DO_INSERTS = true;
+
+    private static final String FILE_LOCATION = "src/main/resources/missing_positions.csv";
+
+    private static final String FLAG_CODE = "1006";
+    private static final String DATA_CENTER_IDENTIFIER = "3006";
+
+    private static int shipPositionID = 870000;
 
     static Gson gson = new GsonBuilder().create();
 
