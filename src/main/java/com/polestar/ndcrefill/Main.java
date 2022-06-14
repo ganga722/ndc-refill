@@ -65,7 +65,7 @@ public class Main {
             //iterate through data
             positions.forEach(position -> {
 
-                String insertStatement = constructSQLQuery(position);
+                String insertStatement = constructSQLQueryUsingFunction(position);
                 //execute
                 try {
                     log.debug(gson.toJson(position));
@@ -114,27 +114,25 @@ public class Main {
 
     private static void createOrUpdatePSQLFunction(Statement statement) throws SQLException {
         logLineBreak();
+        statement.execute("DROP FUNCTION IF EXISTS insertposition;");
         log.info("Updating Insert Positions function");
-        String sql = "CREATE OR REPLACE FUNCTION insertposition(ship_position_id TEXT, imo_input TEXT, createTimestamp TEXT, speed_input TEXT, dc_id TEXT, dup_id TEXT, heading_input TEXT, latitude_input TEXT, longitude_input TEXT, gnssTimestamp TEXT, message_id TEXT) RETURNS TEXT AS $$\n" +
+        String sql = "CREATE OR REPLACE FUNCTION insertposition(ship_position_id integer, imo_input TEXT, createTimestamp timestamp, speed_input float, dc_id TEXT, dup_id TEXT, heading_input float, latitude_input float, longitude_input float, gnssTimestamp timestamp, message_id integer) RETURNS TEXT AS $$\n" +
                 "      BEGIN\n" +
-                "\tIF NOT EXISTS (SELECT id FROM shipposition WHERE shipborneequipmenttimestamp = gnssTimestamp and shipborneequipmentidentifier = (select shipborneequipmentidentifier from ship where imonumber = imo)) THEN\n" +
-                "  START TRANSACTION;\n" +
+                "IF NOT EXISTS (SELECT id FROM shipposition WHERE shipborneequipmenttimestamp=gnssTimestamp and shipborneequipmentidentifier=(select shipborneequipmentidentifier from ship where imonumber = imo_input)) THEN\n" +
                 "    INSERT INTO shipposition(id, aspidentifier, aspreceivetimestamp, asptransmittimestamp, averagespeed, datacenteridentifier, datauserprovideridentifier, heading, mmsi, latitude, longitude, receivetimestamp, shipname, shippositiontype, shipborneequipmentidentifier, shipborneequipmenttimestamp, speed, version, ship_id) select\n" +
                 "    ship_position_id, '4001', createTimestamp, createTimestamp, speed_input, dc_id, dup_id, heading_input, (select mmsi from ship where imonumber = imo_input), latitude_input, longitude_input, createTimestamp, (select shipname from ship where imonumber = imo_input), 'PERIODIC_REPORT', (select shipborneequipmentidentifier from ship where imonumber = imo_input), gnssTimestamp, speed_input, '0', (select id from ship where imonumber = imo_input) ;\n" +
                 "\n" +
-                "    INSERT INTO message(id, messagestate, messagetype, transmittimestamp, version, test)\n" +
-                "    VALUES (message_id, 'NOT_SEND', 'PERIODIC_REPORT', createTimestamp,1, false);\n" +
+                "    INSERT INTO message(id, messagestate, messagetype, transmittimestamp, version, test, outbound)\n" +
+                "    VALUES (message_id, 'NOT_SEND', 'PERIODIC_REPORT', createTimestamp,1, false, false);\n" +
                 "\n" +
                 "    INSERT INTO positionreportmessage(id, shipposition_id, datauserrequestoridentifier, responsetype)\n" +
                 "    VALUES (message_id, ship_position_id, dup_id, 'FLAG');\n" +
                 "\n" +
-                "  COMMIT;\n" +
+                "END IF;\n" +
                 "\n" +
-                "\tEND IF;\n" +
-                "\n" +
-                "      RETURN ship_position_id;\n" +
-                "   END; $$\n" +
-                "   LANGUAGE plpgsql;";
+                "  RETURN ship_position_id;\n" +
+                "END; $$\n" +
+                "LANGUAGE plpgsql;";
         statement.execute(sql);
         log.info("Updated Successfully");
     }
@@ -171,17 +169,11 @@ public class Main {
     private static void logStartingDetails() {
         logLineBreak();
         log.info("Starting Backfill");
-
         log.info("HOST: " + HOST);
-
         log.info("MASTER_USERNAME: " + MASTER_USERNAME);
-
         log.info("DO_INSERTS: " + DO_INSERTS);
-
         log.info("FILE_LOCATION: " + FILE_LOCATION);
-
         log.info("FLAG_CODE: " + FLAG_CODE);
-
         log.info("DATA_CENTER_IDENTIFIER: " + DATA_CENTER_IDENTIFIER);
     }
 
@@ -241,7 +233,7 @@ public class Main {
     }
 
 
-    private static String query(Position position){
+    private static String constructSQLQueryUsingFunction(Position position){
 
         String createTimestamp = String.format("%s %s", position.getCreation_date(), position.getCreation_time());
         String gnssTimestamp = String.format("%s %s", position.getTrail_date(), position.getTrail_time());
