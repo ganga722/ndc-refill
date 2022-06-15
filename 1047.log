@@ -1,0 +1,104 @@
+13:38:09.543 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:38:09.545 [main] INFO  com.polestar.ndcrefill.Main - Start: 2022-06-15 13:38:09.545
+13:38:09.545 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:38:09.545 [main] INFO  com.polestar.ndcrefill.Main - Starting Backfill
+13:38:09.545 [main] INFO  com.polestar.ndcrefill.Main - HOST: jdbc:postgresql://lrit-cluster-two.polestar-production.local:5432/
+13:38:09.545 [main] INFO  com.polestar.ndcrefill.Main - MASTER_USERNAME: eth
+13:38:09.545 [main] INFO  com.polestar.ndcrefill.Main - DO_INSERTS: false
+13:38:09.545 [main] INFO  com.polestar.ndcrefill.Main - FILE_LOCATION: src/main/resources/missing_positions.csv
+13:38:09.545 [main] INFO  com.polestar.ndcrefill.Main - FLAG_CODE: 1047
+13:38:09.545 [main] INFO  com.polestar.ndcrefill.Main - DATA_CENTER_IDENTIFIER: 3134
+13:38:16.897 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:38:16.898 [main] INFO  com.polestar.ndcrefill.Main - Starting Details
+13:38:17.781 [main] INFO  com.polestar.ndcrefill.Main - ShipPosition Generator Value: 6
+13:38:18.673 [main] INFO  com.polestar.ndcrefill.Main - Message Generator Value: 7796
+13:38:19.046 [main] INFO  com.polestar.ndcrefill.Main - current max ship position id is: 294 starting shipPositionID: 2294
+13:38:19.729 [main] INFO  com.polestar.ndcrefill.Main - current max message id is: 389765 starting messageID: 391765
+13:38:19.729 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:38:20.411 [main] INFO  com.polestar.ndcrefill.Main - Updating Insert Positions function
+13:38:20.788 [main] INFO  com.polestar.ndcrefill.Main - Updated Successfully
+13:38:20.789 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:38:20.791 [main] INFO  com.polestar.ndcrefill.FileService - starting to process file
+13:38:21.004 [main] INFO  com.polestar.ndcrefill.FileService - Positions count: 15
+13:38:21.004 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:38:21.016 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-05","creation_time":"16:50:03","trail_date":"2022-06-05","trail_time":"16:48:00","trail_latitude":"1.272","trail_longitude":"103.562","trail_speed":"0","trail_heading":"144","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.016 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-05","creation_time":"10:50:11","trail_date":"2022-06-05","trail_time":"10:48:00","trail_latitude":"1.271333333","trail_longitude":"103.5606667","trail_speed":"0.2","trail_heading":"236","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.016 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-05","creation_time":"04:50:16","trail_date":"2022-06-05","trail_time":"04:48:00","trail_latitude":"1.27","trail_longitude":"103.5626667","trail_speed":"0","trail_heading":"197","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.017 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-04","creation_time":"22:53:22","trail_date":"2022-06-04","trail_time":"22:48:00","trail_latitude":"1.262666667","trail_longitude":"103.6853333","trail_speed":"1.4","trail_heading":"131","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.017 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-04","creation_time":"16:50:18","trail_date":"2022-06-04","trail_time":"16:48:00","trail_latitude":"1.263333333","trail_longitude":"103.684","trail_speed":"0","trail_heading":"261","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.017 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-04","creation_time":"10:50:13","trail_date":"2022-06-04","trail_time":"10:48:00","trail_latitude":"1.263333333","trail_longitude":"103.684","trail_speed":"0","trail_heading":"299","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.017 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-04","creation_time":"04:50:13","trail_date":"2022-06-04","trail_time":"04:48:00","trail_latitude":"1.283333333","trail_longitude":"103.74","trail_speed":"5.8","trail_heading":"147","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.018 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-03","creation_time":"22:50:17","trail_date":"2022-06-03","trail_time":"22:48:00","trail_latitude":"1.299333333","trail_longitude":"103.7133333","trail_speed":"0","trail_heading":"245","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.018 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-03","creation_time":"16:50:29","trail_date":"2022-06-03","trail_time":"16:48:00","trail_latitude":"1.299333333","trail_longitude":"103.7133333","trail_speed":"0","trail_heading":"257","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.018 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-03","creation_time":"10:50:01","trail_date":"2022-06-03","trail_time":"10:48:00","trail_latitude":"1.299333333","trail_longitude":"103.7133333","trail_speed":"0","trail_heading":"267","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.018 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-03","creation_time":"04:50:15","trail_date":"2022-06-03","trail_time":"04:48:00","trail_latitude":"1.299333333","trail_longitude":"103.7133333","trail_speed":"0","trail_heading":"272","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.018 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-02","creation_time":"22:50:14","trail_date":"2022-06-02","trail_time":"22:48:00","trail_latitude":"1.228","trail_longitude":"103.8106667","trail_speed":"0","trail_heading":"19","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.019 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-02","creation_time":"16:50:02","trail_date":"2022-06-02","trail_time":"16:48:00","trail_latitude":"1.229333333","trail_longitude":"103.8093333","trail_speed":"0.2","trail_heading":"353","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.019 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-02","creation_time":"10:50:17","trail_date":"2022-06-02","trail_time":"10:48:00","trail_latitude":"1.231333333","trail_longitude":"103.8073333","trail_speed":"0","trail_heading":"136","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.019 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-02","creation_time":"04:50:04","trail_date":"2022-06-02","trail_time":"04:48:00","trail_latitude":"1.26","trail_longitude":"103.9933333","trail_speed":"2.2","trail_heading":"257","i_m_o_number":"9617454","DC_ID":"1047"}
+13:38:21.019 [main] DEBUG com.polestar.ndcrefill.Main - []
+13:38:21.019 [main] INFO  com.polestar.ndcrefill.Main - Current position: 15 out of 15
+13:38:21.020 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:38:21.894 [main] INFO  com.polestar.ndcrefill.Main - new max shippositionID: 294
+13:38:21.895 [main] INFO  com.polestar.ndcrefill.Main - new ship position generator value 15
+13:38:21.896 [main] INFO  com.polestar.ndcrefill.Main - Did not update ship position generator value, UPDATE_GENERATOR is false
+13:38:21.896 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:38:22.473 [main] INFO  com.polestar.ndcrefill.Main - new max messageID: 389765
+13:38:22.474 [main] INFO  com.polestar.ndcrefill.Main - new message generator value 7805
+13:38:22.475 [main] INFO  com.polestar.ndcrefill.Main - Did not update message generator value, UPDATE_GENERATOR is false
+13:38:22.476 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:38:22.477 [main] INFO  com.polestar.ndcrefill.Main - finished: 2022-06-15 13:38:22.476
+13:38:22.479 [main] INFO  com.polestar.ndcrefill.Main - time taken: PT12.931S
+13:38:22.479 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:39:51.041 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:39:51.043 [main] INFO  com.polestar.ndcrefill.Main - Start: 2022-06-15 13:39:51.043
+13:39:51.043 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:39:51.043 [main] INFO  com.polestar.ndcrefill.Main - Starting Backfill
+13:39:51.043 [main] INFO  com.polestar.ndcrefill.Main - HOST: jdbc:postgresql://lrit-cluster-two.polestar-production.local:5432/
+13:39:51.043 [main] INFO  com.polestar.ndcrefill.Main - MASTER_USERNAME: eth
+13:39:51.044 [main] INFO  com.polestar.ndcrefill.Main - DO_INSERTS: true
+13:39:51.044 [main] INFO  com.polestar.ndcrefill.Main - FILE_LOCATION: src/main/resources/missing_positions.csv
+13:39:51.044 [main] INFO  com.polestar.ndcrefill.Main - FLAG_CODE: 1047
+13:39:51.044 [main] INFO  com.polestar.ndcrefill.Main - DATA_CENTER_IDENTIFIER: 3134
+13:39:57.557 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:39:57.557 [main] INFO  com.polestar.ndcrefill.Main - Starting Details
+13:39:57.946 [main] INFO  com.polestar.ndcrefill.Main - ShipPosition Generator Value: 6
+13:39:58.316 [main] INFO  com.polestar.ndcrefill.Main - Message Generator Value: 7796
+13:39:58.689 [main] INFO  com.polestar.ndcrefill.Main - current max ship position id is: 294 starting shipPositionID: 2294
+13:39:59.060 [main] INFO  com.polestar.ndcrefill.Main - current max message id is: 389765 starting messageID: 391765
+13:39:59.061 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:39:59.434 [main] INFO  com.polestar.ndcrefill.Main - Updating Insert Positions function
+13:39:59.812 [main] INFO  com.polestar.ndcrefill.Main - Updated Successfully
+13:39:59.813 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:39:59.815 [main] INFO  com.polestar.ndcrefill.FileService - starting to process file
+13:40:00.023 [main] INFO  com.polestar.ndcrefill.FileService - Positions count: 15
+13:40:00.023 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:40:00.029 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-05","creation_time":"16:50:03","trail_date":"2022-06-05","trail_time":"16:48:00","trail_latitude":"1.272","trail_longitude":"103.562","trail_speed":"0","trail_heading":"144","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.030 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-05","creation_time":"10:50:11","trail_date":"2022-06-05","trail_time":"10:48:00","trail_latitude":"1.271333333","trail_longitude":"103.5606667","trail_speed":"0.2","trail_heading":"236","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.030 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-05","creation_time":"04:50:16","trail_date":"2022-06-05","trail_time":"04:48:00","trail_latitude":"1.27","trail_longitude":"103.5626667","trail_speed":"0","trail_heading":"197","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.030 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-04","creation_time":"22:53:22","trail_date":"2022-06-04","trail_time":"22:48:00","trail_latitude":"1.262666667","trail_longitude":"103.6853333","trail_speed":"1.4","trail_heading":"131","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.030 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-04","creation_time":"16:50:18","trail_date":"2022-06-04","trail_time":"16:48:00","trail_latitude":"1.263333333","trail_longitude":"103.684","trail_speed":"0","trail_heading":"261","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.031 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-04","creation_time":"10:50:13","trail_date":"2022-06-04","trail_time":"10:48:00","trail_latitude":"1.263333333","trail_longitude":"103.684","trail_speed":"0","trail_heading":"299","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.031 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-04","creation_time":"04:50:13","trail_date":"2022-06-04","trail_time":"04:48:00","trail_latitude":"1.283333333","trail_longitude":"103.74","trail_speed":"5.8","trail_heading":"147","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.031 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-03","creation_time":"22:50:17","trail_date":"2022-06-03","trail_time":"22:48:00","trail_latitude":"1.299333333","trail_longitude":"103.7133333","trail_speed":"0","trail_heading":"245","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.031 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-03","creation_time":"16:50:29","trail_date":"2022-06-03","trail_time":"16:48:00","trail_latitude":"1.299333333","trail_longitude":"103.7133333","trail_speed":"0","trail_heading":"257","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.032 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-03","creation_time":"10:50:01","trail_date":"2022-06-03","trail_time":"10:48:00","trail_latitude":"1.299333333","trail_longitude":"103.7133333","trail_speed":"0","trail_heading":"267","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.032 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-03","creation_time":"04:50:15","trail_date":"2022-06-03","trail_time":"04:48:00","trail_latitude":"1.299333333","trail_longitude":"103.7133333","trail_speed":"0","trail_heading":"272","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.032 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-02","creation_time":"22:50:14","trail_date":"2022-06-02","trail_time":"22:48:00","trail_latitude":"1.228","trail_longitude":"103.8106667","trail_speed":"0","trail_heading":"19","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.032 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-02","creation_time":"16:50:02","trail_date":"2022-06-02","trail_time":"16:48:00","trail_latitude":"1.229333333","trail_longitude":"103.8093333","trail_speed":"0.2","trail_heading":"353","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.033 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-02","creation_time":"10:50:17","trail_date":"2022-06-02","trail_time":"10:48:00","trail_latitude":"1.231333333","trail_longitude":"103.8073333","trail_speed":"0","trail_heading":"136","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.033 [main] DEBUG com.polestar.ndcrefill.Main - {"creation_date":"2022-06-02","creation_time":"04:50:04","trail_date":"2022-06-02","trail_time":"04:48:00","trail_latitude":"1.26","trail_longitude":"103.9933333","trail_speed":"2.2","trail_heading":"257","i_m_o_number":"9617454","DC_ID":"1047"}
+13:40:00.712 [main] DEBUG com.polestar.ndcrefill.Main - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+13:40:00.712 [main] INFO  com.polestar.ndcrefill.Main - Current position: 15 out of 15
+13:40:00.713 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:40:01.600 [main] INFO  com.polestar.ndcrefill.Main - new max shippositionID: 2306
+13:40:01.601 [main] INFO  com.polestar.ndcrefill.Main - new ship position generator value 56
+13:40:02.445 [main] INFO  com.polestar.ndcrefill.Main - Updated Ship Position Generator value successfully
+13:40:02.445 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:40:03.348 [main] INFO  com.polestar.ndcrefill.Main - new max messageID: 391777
+13:40:03.349 [main] INFO  com.polestar.ndcrefill.Main - new message generator value 7845
+13:40:04.254 [main] INFO  com.polestar.ndcrefill.Main - Updated Message Generator value successfully
+13:40:04.256 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
+13:40:04.256 [main] INFO  com.polestar.ndcrefill.Main - finished: 2022-06-15 13:40:04.256
+13:40:04.258 [main] INFO  com.polestar.ndcrefill.Main - time taken: PT13.213S
+13:40:04.258 [main] INFO  com.polestar.ndcrefill.Main - -----------------------------------------------------------------
