@@ -16,27 +16,39 @@ public class Main {
 //    private static final String MASTER_USERNAME = "test_pan_dc";
 //    private static final String MASTER_PASSWORD = "Vod2FrovyerUc8";
 //-----------------------------------------------------------------------
-//    private static final String HOST = "jdbc:postgresql://10.0.0.42:5432/";
+//    private static final String HOST = "jdbc:postgresql://10.0.0.99:5432/";
 //    private static final String MASTER_USERNAME = "lrit";
 //    private static final String MASTER_PASSWORD = "ynf97xp";
 //-----------------------------------------------------------------------
-    private static final String HOST = "jdbc:postgresql://dev-encrypted-rds-manager.cp2beydjt4o5.us-east-1.rds.amazonaws.com:5432/";
-    private static final String MASTER_USERNAME = "dev_pan_dc";
+//    private static final String HOST = "jdbc:postgresql://localhost:6432/";
+//    private static final String MASTER_USERNAME = "lrit";
+//    private static final String MASTER_PASSWORD = "";
+//-----------------------------------------------------------------------
+    private static final String HOST = "jdbc:postgresql://mhl-rds-manager.polestar-production.local:5432/";
+    private static final String MASTER_USERNAME = "mhl";
     private static final String MASTER_PASSWORD = "Vod2FrovyerUc8";
-
+//-----------------------------------------------------------------------
     private static final boolean DO_INSERTS = false;
     private static final boolean UPDATE_GENERATOR = false;
-    private static final String FILE_LOCATION = "src/main/resources/missing_positions-test.csv";
-    private static final String FLAG_CODE = "1108";
-    private static final String DATA_CENTER_IDENTIFIER = "3108";
+    private static final String FILE_LOCATION = "src/main/resources/missing_positions.csv";
+    private static final String FLAG_CODE = "1090";
+    private static final String DATA_CENTER_IDENTIFIER = "3090";
 
 //-----------------------------------------------------------------------
+
+    private static final int GENERATOR_OFFSET = 100;
+    private static final int POSITION_OFFSET = 2000;
 
     static Gson gson = new GsonBuilder().create();
     private static int shipPositionID;
     private static int messageID;
 
     public static void main(String[] args) {
+
+        logLineBreak();
+        Timestamp starttimestamp = new Timestamp(System.currentTimeMillis());
+        log.info("Start: " + starttimestamp);
+
 
         logStartingDetails();
 
@@ -56,10 +68,7 @@ public class Main {
             List<Position> positions = fileService.processFile(FILE_LOCATION);
             int totalPositions = positions.size();
             AtomicInteger count = new AtomicInteger();
-            Timestamp starttimestamp = new Timestamp(System.currentTimeMillis());
 
-            logLineBreak();
-            log.info("Start: " + starttimestamp);
             logLineBreak();
 
             //iterate through data
@@ -114,7 +123,6 @@ public class Main {
 
     private static void createOrUpdatePSQLFunction(Statement statement) throws SQLException {
         logLineBreak();
-        statement.execute("DROP FUNCTION IF EXISTS insertposition;");
         log.info("Updating Insert Positions function");
         String sql = "CREATE OR REPLACE FUNCTION insertposition(ship_position_id integer, imo_input TEXT, createTimestamp timestamp, speed_input float, dc_id TEXT, dup_id TEXT, heading_input float, latitude_input float, longitude_input float, gnssTimestamp timestamp, message_id integer) RETURNS TEXT AS $$\n" +
                 "      BEGIN\n" +
@@ -142,7 +150,7 @@ public class Main {
 
         int newMaxShipPositionID = getMaxShipPositionID(statement);
         log.info("new max shippositionID: " + newMaxShipPositionID);
-        int newShipPositionGeneratorValue = (int) Math.ceil(newMaxShipPositionID/50) + 100;
+        int newShipPositionGeneratorValue = (int) Math.ceil(newMaxShipPositionID/50) + GENERATOR_OFFSET;
         log.info("new ship position generator value " + newShipPositionGeneratorValue);
 
         if(UPDATE_GENERATOR) {
@@ -156,7 +164,7 @@ public class Main {
 
         int newMaxMessageID = getMaxMessageID(statement);
         log.info("new max messageID: " + newMaxMessageID);
-        int newMessageGeneratorValue = (int) Math.ceil(newMaxMessageID/50) + 100;
+        int newMessageGeneratorValue = (int) Math.ceil(newMaxMessageID/50) + GENERATOR_OFFSET;
         log.info("new message generator value " + newMessageGeneratorValue);
         if(UPDATE_GENERATOR) {
             statement.execute("Update Generator set sequence_next_hi_value=" + newMessageGeneratorValue + " where sequence_name='Message';");
@@ -183,11 +191,11 @@ public class Main {
         log.info("ShipPosition Generator Value: " + getShipPositionGeneratorValue(statement));
         log.info("Message Generator Value: " + getMessageGeneratorValue(statement));
         int maxShipPositionID = getMaxShipPositionID(statement);
-        shipPositionID = maxShipPositionID + 2000;
+        shipPositionID = maxShipPositionID + POSITION_OFFSET;
         log.info("current max ship position id is: " + maxShipPositionID + " starting shipPositionID: " + shipPositionID);
 
         int maxMessageID = getMaxMessageID(statement);
-        messageID = maxMessageID + 2000;
+        messageID = maxMessageID + 10000;
         log.info("current max message id is: " + maxMessageID + " starting messageID: " + messageID);
     }
 
